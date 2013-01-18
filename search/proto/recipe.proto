@@ -1,0 +1,10 @@
+message TIngredient {
+    optional string Name = 1;
+    optional string Volume = 2;
+};
+
+message TRecipe {
+    repeated TIngredient Ingredients = 1;
+    optional string Description = 2;
+    optional string ImageLink = 3;
+};
