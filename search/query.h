@@ -7,6 +7,7 @@ using std::string;
 using std::vector;
 
 enum EEntityType {
+    ET_UNKNOWN = 0,
     ET_INGREDIENT = 1,
     ET_DISH_TYPE = 2,
     ET_SIZE
@@ -14,6 +15,10 @@ enum EEntityType {
 
 class TEntity {
 public:
+    TEntity();
+
+    bool operator<(const TEntity& other) const;
+
 private:
     EEntityType Type; // ex.: ingredient, dish type
     string Value;     // "potato", "vegetarian"

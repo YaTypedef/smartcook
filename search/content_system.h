@@ -14,7 +14,7 @@ public:
     bool AddDocument(const TDocument& document);
 
     bool HasDocumentWithId(const TDocId& id) const;
-    bool GetDocumentById(const TDocId& id, TDocument* document) const;
+    const TDocument& GetDocumentById(const TDocId& id) const;
 
     bool RemoveDocumentById(const TDocId& id);
 
@@ -24,6 +24,11 @@ public:
     void LoadFromFile(const string& filename);
 
 private:
-    map<TDocId, TDocument> Documents;
+    static const TDocument EmptyDocument;
+
+private:
+    typedef map<TDocId, TDocument> TDocuments;
+    TDocuments Documents;
+
     TIndex Index;
 };

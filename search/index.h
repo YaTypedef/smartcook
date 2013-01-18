@@ -9,7 +9,17 @@ using std::map;
 
 class TIndex {
 public:
-    void AddEntity(const TEntity& entity);
+    TIndex();
+
+    void AddEntity(const TEntity& entity, const TDocId& id);
+
+    bool GetMustHaveSortedDocsLists() const;
+    void SetMustHaveSortedDocsLists(bool newFlag);
+
+    void SortDocsLists();
+
 private:
     map<TEntity, TDocsList> Index;
+
+    bool MustHaveSortedDocsLists;
 };
