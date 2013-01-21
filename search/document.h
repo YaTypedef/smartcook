@@ -4,6 +4,7 @@
 
 #include "document.h"
 #include "query.h"
+#include "recipe.pb.h"
 
 using std::vector;
 
@@ -15,8 +16,11 @@ public:
     TDocument();
 
     const TDocId& GetId() const;
+    const TRecipe& GetRecipe() const;
+
     virtual void ExtractAllEntities(vector<TEntity>* entities) const;
 
 private:
     TDocId Id;
+    TRecipe Recipe;
 };
