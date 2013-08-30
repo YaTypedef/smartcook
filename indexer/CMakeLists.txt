@@ -1,0 +1,8 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+PROJECT(indexer)
+
+INCLUDE_DIRECTORIES(${clucene_SOURCE_DIR}/src/core)
+
+ADD_EXECUTABLE(indexer main.cpp)
+
+TARGET_LINK_LIBRARIES(indexer clucene-core)
