@@ -3,6 +3,13 @@ PROJECT(indexer)
 
 INCLUDE_DIRECTORIES(${clucene_SOURCE_DIR}/src/core)
 
+SET(Boost_DEBUG 1)
+FIND_PACKAGE(Boost COMPONENTS program_options REQUIRED)
+MESSAGE(STATUS "** Boost Include: ${Boost_INCLUDE_DIR}")
+MESSAGE(STATUS "** Boost Lib: ${Boost_LIBRARIES}")
+INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
+ADD_DEFINITIONS("-DHAS_BOOST")
+
 ADD_EXECUTABLE(indexer main.cpp)
 
-TARGET_LINK_LIBRARIES(indexer clucene-core)
+TARGET_LINK_LIBRARIES(indexer clucene-core ${Boost_PROGRAM_OPTIONS_LIBRARY})
