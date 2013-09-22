@@ -1,23 +1,23 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
-PROJECT(SMARTCOOK)
+PROJECT(search)
 
-FIND_PACKAGE(Protobuf REQUIRED)
-INCLUDE_DIRECTORIES(${PROTOBUF_INCLUDE_DIRS})
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
-PROTOBUF_GENERATE_CPP(PROTO_SRCS PROTO_HDRS proto/recipe.proto)
+SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/")
 
-ADD_EXECUTABLE(
-    smartcook
+INCLUDE_DIRECTORIES("./if/gen-cpp")
 
-    content_system.cpp
-    document.cpp
-    index.cpp
-    query.cpp
+INCLUDE_DIRECTORIES(${clucene_SOURCE_DIR}/src/core)
 
-    ${PROTO_SRCS}
-    ${PROTO_HDRS}
+FIND_PACKAGE(Boost COMPONENTS program_options REQUIRED)
+MESSAGE(STATUS "** Boost Include: ${Boost_INCLUDE_DIR}")
+MESSAGE(STATUS "** Boost Lib: ${Boost_LIBRARIES}")
+INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
+ADD_DEFINITIONS("-DHAS_BOOST")
 
-    main.cpp)
+FIND_PACKAGE(Thrift REQUIRED)
+MESSAGE("${Thrift_LIB}")
 
-TARGET_LINK_LIBRARIES(smartcook ${PROTOBUF_LIBRARIES})
+ADD_EXECUTABLE(search search.cpp ./if/gen-cpp/Search.cpp ./if/gen-cpp/search_types.cpp)
+
+TARGET_LINK_LIBRARIES(search clucene-core ${Thrift_LIB} ${Boost_PROGRAM_OPTIONS_LIBRARY})
+
